@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="zh">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>树莓派遥控小车</title>
+    <link href="http://cdn.bootcss.com/bootstrap/3.3.5/css/bootstrap.min.css" rel="stylesheet" media="screen">
+    <script src="https://cdn.bootcdn.net/ajax/libs/jquery/1.10.0/jquery.js"></script>
+    <style type="text/css">
+        #video {
+            margin: 20px auto;
+            height: 250px;
+            background: #e5e5e5;
+        }
+
+        #btns {
+            text-align: center;
+        }
+
+        #up,
+        #down,
+        #left,
+        #right,
+        #stop {
+            margin: 3px;
+        }
+    </style>
+    <script>
+        $(function () {
+            $("button").click(function () {
+                $.post("cmd", {
+                    cmd: this.id
+                });
+            });
+        });
+    </script>
+</head>
+
+<body>
+    <div id="container" class="container">
+        <div id="video"></div>
+        <div id="btns">
+            <div>
+                <button id="up" class="btn btn-lg btn-primary glyphicon glyphicon-circle-arrow-up"></button>
+            </div>
+            <div>
+                <button id="left" class="btn btn-lg btn-primary glyphicon glyphicon-circle-arrow-left"></button>
+                <button id="stop" class="btn btn-lg btn-primary glyphicon glyphicon-stop"></button>
+                <button id="right" class="btn btn-lg btn-primary glyphicon glyphicon-circle-arrow-right"></button>
+            </div>
+            <div>
+                <button id="down" class="btn btn-lg btn-primary glyphicon glyphicon-circle-arrow-down"></button>
+            </div>
+        </div>
+    </div>
+    <script src="http://cdn.bootcss.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+</body>
+
+</html>
