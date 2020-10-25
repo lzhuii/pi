@@ -1,8 +1,7 @@
 from flask import Flask, render_template, request, Response
 import RPi.GPIO as GPIO
 import time
-from camera_pi import Camera
-from threading import Thread
+from camera_pi import Camera 
 
 app = Flask(__name__)
 
@@ -97,25 +96,17 @@ def cmd():
 
 
 def gen(camera):
-    camera.saturation = 80
-    camera.brightness = 50
-    camera.shutter_speed = 6000000
-    camera.iso = 800
-    camera.sharpness = 0
-    camera.framrate = 32
-    camera.vflip = False  # 是否进行垂直翻转
-    camera.rotation = 0  # 是否对图像进行旋转
     while True:
         frame = camera.get_frame()
         yield (b'--frame\r\n'
                b'Content-Type: image/jpeg\r\n\r\n' + frame + b'\r\n')
 
 
-@app.route('/video_feed')
-def video_feed():
+@app.route("/video")
+def video():
     return Response(gen(Camera()),
                     mimetype='multipart/x-mixed-replace; boundary=frame')
 
 
 if __name__ == "__main__":
-    app.run(host="0.0.0.0", port="8000", threaded=True)
+    app.run(host='0.0.0.0', port=8000, debug=True, threaded=True)
